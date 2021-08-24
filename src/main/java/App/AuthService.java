@@ -1,6 +1,5 @@
 package App;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 class InvalidMerchantException  extends Exception
@@ -20,28 +19,10 @@ class OutOfSufficientFundsException extends  Exception{
 
 public class AuthService {
 
-    public ArrayList<PhonePeWallet> registeredPhonePeWallets;
-    public ArrayList<PayTMWallet> registeredPayTMWallets;
-    public ArrayList<BankAccount> registeredBankAccounts;
     public ArrayList<String> registeredMerchants;
 
     AuthService(){
-        this.registeredPhonePeWallets = new ArrayList<PhonePeWallet>();
-        this.registeredPayTMWallets = new ArrayList<PayTMWallet>();
-        this.registeredBankAccounts = new ArrayList<BankAccount>();
         this.registeredMerchants = new ArrayList<String>();
-    }
-
-    void registerPhonePe(PhonePeWallet phonePeWallet){
-        registeredPhonePeWallets.add(phonePeWallet);
-    }
-
-    void register(PayTMWallet payTMWallet){
-        registeredPayTMWallets.add(payTMWallet);
-    }
-
-    void register(BankAccount bankAccount){
-        registeredBankAccounts.add(bankAccount);
     }
 
     void register(Merchant merchant){
@@ -49,11 +30,11 @@ public class AuthService {
     }
 
     boolean checkValidity(PhonePeWallet phonePeWallet){
-       return registeredPhonePeWallets.contains(phonePeWallet);
+       return (phonePeWallet != null);
     }
 
     boolean checkValidity(PayTMWallet payTMWallet){
-        return registeredPayTMWallets.contains(payTMWallet);
+        return (payTMWallet != null);
     }
 
     boolean checkAuthenicity(Merchant merchant){
@@ -61,7 +42,7 @@ public class AuthService {
     }
 
     boolean checkValidity(BankAccount bankAccount){
-        return registeredBankAccounts.contains(bankAccount);
+        return bankAccount != null;
     }
 
     void payTMTransaction(PayTMWallet payTMWallet,Merchant merchant,int amount) throws OutOfSufficientFundsException {
@@ -98,7 +79,7 @@ public class AuthService {
     }
 
 
-    void transaction(Customer customer,Merchant merchant,String choosen,int amount) throws InvalidMerchantException, OutOfSufficientFundsException {
+    void transaction(Customer customer, Merchant merchant, String choosen, int amount) throws InvalidMerchantException, OutOfSufficientFundsException {
         if(checkAuthenicity(merchant)){
 
             switch(choosen){

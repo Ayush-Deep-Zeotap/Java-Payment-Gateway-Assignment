@@ -10,4 +10,9 @@ public class PayTMWallet {
         this.bal = amt;
     }
 
+    PayTMWallet(String ph){
+        this.phoneNo = ph;
+        this.bal = 0;
+    }
+
 }
